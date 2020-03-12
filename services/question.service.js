@@ -46,6 +46,7 @@ function getAll(){
     return deferred.promise;
 }
 
+
 function _delete(_id) {
     var deferred = Q.defer();
 
