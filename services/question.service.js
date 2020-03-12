@@ -9,7 +9,9 @@ db.bind('questions');
 
 var serviceQuestion = {};
 
+serviceQuestion.getAll = getAll;
 serviceQuestion.create = create;
+serviceQuestion.delete = _delete;
 
 module.exports = serviceQuestion;
 
@@ -26,4 +28,34 @@ function create(questionParam){
     
         return deferred.promise;
 
+}
+
+function getAll(){
+    var deferred = Q.defer();
+
+    db.questions.find().toArray(function (err, questions) {
+        if (err) deferred.reject(err.description + ': ' + err.message);
+
+        if (questions) {
+            deferred.resolve(questions);
+        } else {
+            deferred.resolve();
+        }
+    });
+
+    return deferred.promise;
+}
+
+function _delete(_id) {
+    var deferred = Q.defer();
+
+    db.questions.remove(
+        { _id: mongo.helper.toObjectID(_id) },
+        function (err) {
+            if (err) deferred.reject(err.name + ': ' + err.message);
+
+            deferred.resolve();
+        });
+
+    return deferred.promise;
 }
