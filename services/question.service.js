@@ -10,6 +10,7 @@ db.bind('questions');
 var serviceQuestion = {};
 
 serviceQuestion.create = create;
+serviceQuestion.getAll = getAll;
 
 module.exports = serviceQuestion;
 
@@ -27,3 +28,20 @@ function create(questionParam){
         return deferred.promise;
 
 }
+
+function getAll(){
+    var deferred = Q.defer();
+
+    db.questions.find().toArray(function (err, questions) {
+        if (err) deferred.reject(err.description + ': ' + err.message);
+
+        if (questions) {
+            deferred.resolve(questions);
+        } else {
+            deferred.resolve();
+        }
+    });
+
+    return deferred.promise;
+}
+
