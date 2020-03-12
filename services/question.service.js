@@ -32,7 +32,11 @@ function create(questionParam){
 function getAll(){
     var deferred = Q.defer();
 
+<<<<<<< HEAD
     db.questions.find().toArray(function (err, questions) {
+=======
+    db.questions.find()(function (err) {
+>>>>>>> 179e068da47005acc822555532df92f4a31fe3fb
         if (err) deferred.reject(err.description + ': ' + err.message);
 
         if (questions) {
@@ -44,4 +48,7 @@ function getAll(){
 
     return deferred.promise;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 179e068da47005acc822555532df92f4a31fe3fb
